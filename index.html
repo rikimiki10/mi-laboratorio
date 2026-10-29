@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10131c">
+  <meta name="description" content="Mi espacio personal para organizar tareas y experimentar con herramientas.">
+
+  <title>Mi Laboratorio</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="#inicio" data-screen="inicio" aria-label="Ir al inicio">
+        <span class="brand-icon">✦</span>
+        <span>Mi <strong>Laboratorio</strong></span>
+      </a>
+      <span class="version-label">v1.0</span>
+    </header>
+
+    <main>
+      <!-- INICIO -->
+      <section class="screen active" id="inicio">
+        <div class="welcome">
+          <span class="eyebrow">TU ESPACIO DIGITAL</span>
+          <h1>Hola, ¿qué vamos a<br><span>crear hoy?</span></h1>
+          <p>Organizá tus ideas, avanzá con tus tareas y experimentá a tu ritmo.</p>
+        </div>
+
+        <article class="hero-card">
+          <div class="hero-content">
+            <span class="hero-tag">TU PROGRESO</span>
+            <h2>Un paso a la vez.</h2>
+            <p>Las pequeñas acciones también cuentan. Cada tarea completada es un avance.</p>
+          </div>
+          <div class="hero-decoration" aria-hidden="true">✦</div>
+        </article>
+
+        <div class="section-heading">
+          <div>
+            <h2>Tu actividad</h2>
+            <p>Así viene tu progreso.</p>
+          </div>
+        </div>
+
+        <div class="stats home-stats">
+          <article class="stat-card">
+            <span class="stat-icon blue">▤</span>
+            <strong id="home-total">0</strong>
+            <span>Tareas totales</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon green">✓</span>
+            <strong id="home-done">0</strong>
+            <span>Completadas</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon orange">◷</span>
+            <strong id="home-pending">0</strong>
+            <span>Pendientes</span>
+          </article>
+        </div>
+
+        <div class="section-heading pending-heading">
+          <div>
+            <h2>Tus tareas pendientes</h2>
+            <p>Lo próximo que tenés por hacer.</p>
+          </div>
+        </div>
+
+        <div id="home-pending-list" class="home-pending-list"></div>
+      </section>
+
+      <!-- TAREAS -->
+      <section class="screen" id="tareas">
+        <div class="page-heading">
+          <span class="eyebrow">ORGANIZACIÓN</span>
+          <h1>Mis tareas</h1>
+          <p>Ordená tus pendientes y marcá tus avances.</p>
+        </div>
+
+        <form id="task-form" class="task-form">
+          <label for="task-input">Nueva tarea</label>
+          <div class="task-input-row">
+            <input id="task-input" name="task" type="text" maxlength="160"
+              placeholder="¿Qué necesitás hacer?" autocomplete="off" required>
+            <button class="primary-button add-button" type="submit"
+              aria-label="Agregar tarea">+</button>
+          </div>
+        </form>
+
+        <div class="stats task-stats">
+          <article class="stat-card compact">
+            <strong id="task-total-stat">0</strong>
+            <span>Total</span>
+          </article>
+          <article class="stat-card compact">
+            <strong id="task-done-stat">0</strong>
+            <span>Hechas</span>
+          </article>
+          <article class="stat-card compact">
+            <strong id="task-pending-stat">0</strong>
+            <span>Pendientes</span>
+          </article>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-top">
+            <span>Progreso general</span>
+            <strong id="task-progress-label">0%</strong>
+          </div>
+          <div class="progress-track" id="task-progress" role="progressbar"
+            aria-label="Progreso de tareas" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-bar" id="task-progress-bar"></div>
+          </div>
+          <p id="task-progress-message">Todavía no hay tareas. ¡Empezá cuando quieras!</p>
+        </div>
+
+        <div class="section-heading task-list-heading">
+          <div>
+            <h2>Lista de tareas</h2>
+            <p id="task-summary">0 tareas</p>
+          </div>
+          <button id="clear-tasks-button" class="text-button" type="button">
+            Borrar todas
+          </button>
+        </div>
+
+        <div id="task-list" class="task-list"></div>
+      </section>
+
+      <!-- HERRAMIENTAS -->
+      <section class="screen" id="herramientas">
+        <div class="page-heading">
+          <span class="eyebrow">EXPERIMENTACIÓN</span>
+          <h1>Herramientas</h1>
+          <p>Pequeñas utilidades para probar y experimentar.</p>
+        </div>
+
+        <article class="tool-card">
+          <div class="tool-heading">
+            <span class="tool-icon">＋</span>
+            <div>
+              <h2>Contador</h2>
+              <p>Un contador que recuerda su valor.</p>
+            </div>
+          </div>
+
+          <div class="counter-display" id="counter-value" aria-live="polite">0</div>
+
+          <div class="counter-controls">
+            <button id="counter-minus" class="secondary-button" type="button"
+              aria-label="Restar uno">−</button>
+            <button id="counter-plus" class="primary-button" type="button"
+              aria-label="Sumar uno">+</button>
+          </div>
+
+          <button id="counter-reset" class="text-button centered-button" type="button">
+            Reiniciar contador
+          </button>
+        </article>
+
+        <article class="tool-card test-card">
+          <div class="tool-heading">
+            <span class="tool-icon purple">⌘</span>
+            <div>
+              <h2>Prueba de JavaScript</h2>
+              <p>Comprobá que las funciones de la app respondan.</p>
+            </div>
+          </div>
+          <button id="js-test-button" class="secondary-button full-button" type="button">
+            Ejecutar prueba
+          </button>
+          <p id="js-test-result" class="test-result" aria-live="polite">
+            La prueba todavía no se ejecutó.
+          </p>
+        </article>
+      </section>
+
+      <!-- AJUSTES -->
+      <section class="screen" id="ajustes">
+        <div class="page-heading">
+          <span class="eyebrow">PERSONALIZACIÓN</span>
+          <h1>Ajustes</h1>
+          <p>Administrá los datos guardados en este dispositivo.</p>
+        </div>
+
+        <article class="settings-card">
+          <div class="settings-item">
+            <div class="settings-symbol">▤</div>
+            <div class="settings-copy">
+              <h2>Tus tareas</h2>
+              <p>Las tareas se guardan localmente en tu dispositivo.</p>
+            </div>
+          </div>
+          <button id="settings-clear-tasks" class="danger-button full-button" type="button">
+            Borrar todas las tareas
+          </button>
+        </article>
+
+        <article class="settings-card">
+          <div class="settings-item">
+            <div class="settings-symbol">＋</div>
+            <div class="settings-copy">
+              <h2>Contador</h2>
+              <p>Volvé a cero cuando quieras comenzar de nuevo.</p>
+            </div>
+          </div>
+          <button id="settings-reset-counter" class="secondary-button full-button" type="button">
+            Reiniciar contador
+          </button>
+        </article>
+
+        <article class="settings-card about-card">
+          <div class="settings-item">
+            <div class="settings-symbol">✦</div>
+            <div class="settings-copy">
+              <h2>Mi Laboratorio</h2>
+              <p>Versión 1.0 · Aplicación personal</p>
+            </div>
+          </div>
+          <p class="privacy-note">
+            Tus tareas y el contador se almacenan en este navegador. No se envían a un servidor.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="nav-item active" type="button" data-screen="inicio" aria-current="page">
+        <span class="nav-icon">⌂</span>
+        <span>Inicio</span>
+      </button>
+      <button class="nav-item" type="button" data-screen="tareas">
+        <span class="nav-icon">▤</span>
+        <span>Tareas</span>
+      </button>
+      <button class="nav-item" type="button" data-screen="herramientas">
+        <span class="nav-icon">⌘</span>
+        <span>Herramientas</span>
+      </button>
+      <button class="nav-item" type="button" data-screen="ajustes">
+        <span class="nav-icon">⚙</span>
+        <span>Ajustes</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- CONFIRMACIÓN -->
+  <div id="confirm-modal" class="modal-backdrop" hidden>
+    <section class="modal-card" role="dialog" aria-modal="true"
+      aria-labelledby="modal-title" aria-describedby="modal-message">
+      <div class="modal-symbol">!</div>
+      <h2 id="modal-title">¿Estás seguro?</h2>
+      <p id="modal-message">Esta acción no se puede deshacer.</p>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="secondary-button" type="button">Cancelar</button>
+        <button id="modal-confirm" class="danger-button" type="button">Confirmar</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="./app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((error) => {
+          console.error("No se pudo activar el modo sin conexión:", error);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
